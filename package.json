@@ -19,7 +19,7 @@
   ],
   "homepage": "http://tapchatapp.com/",
   "scripts": {
-    "prepublish": "coffee --map -c -o lib src",
+    "prepublish": "./env.sh coffee --map -c -o lib src",
     "start": "./bin/tapchat start -fv"
   },
   "bin": {
@@ -50,7 +50,8 @@
     "passport-local": "1.0.0",
     "gzippo": "0.2.0",
     "is-running": "1.0.5",
-    "source-map-support": "0.2.7"
+    "source-map-support": "0.2.7",
+    "coffee-script": "1.7.1"
   },
   "devDependencies": {
     "coffee-script": "1.7.1"

@@ -62,21 +62,33 @@ Config =
     queue = new WorkingQueue(1)
 
     queue.perform (over) =>
-      Program.prompt 'Choose a port [8067]: ', (port) ->
-        config.port = port || 8067
+      if process.env.PORT
+        config.port = process.env.PORT
         over()
+      else
+        Program.prompt 'Choose a port [8067]: ', (port) ->
+          config.port = port || 8067
+          over()
 
     initialUser = {}
 
     queue.perform (over) =>
-      Program.prompt 'Choose a username: ', (username) ->
-        initialUser.name = username
+      if process.env.TAPCHAT_USER
+        initialUser.name = process.env.TAPCHAT_USER
         over()
+      else
+        Program.prompt 'Choose a username: ', (username) ->
+          initialUser.name = username
+          over()
 
     queue.perform (over) =>
-      Program.password 'Choose a password:', '*', (password) ->
-        initialUser.password = PasswordHash.generate(password)
+      if process.env.TAPCHAT_PASSWORD
+        initialUser.password = PasswordHash.generate(process.env.TAPCHAT_PASSWORD)
         over()
+      else
+        Program.password 'Choose a password:', '*', (password) ->
+          initialUser.password = PasswordHash.generate(password)
+          over()
 
     queue.perform (over) =>
       Config.generateCert over
